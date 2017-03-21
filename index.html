@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>home</title>
+
+<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="app/public/style.css">
+
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron text-center">
+			<h1>College</h1>
+			<hr>
+			<h2 class="text-center">Help find your college destination</h2>
+			<h2 class="text-center">and maybe a party school...</h2>
+		</div>
+    <div class="container-fluid"> <div class="row">
+        <div class="col-lg-offset-2 col-lg-8 col-lg-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">List Your Vehicle For Sale:</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <select id="stateList">
+                                <option value="" disabled selected>Select State</option>
+                            </select>
+                            <select id="nameList">
+                                <option value="" disabled selected>Select Name Of School</option>
+                            </select>
+                            <select id="gpaList">
+                                <option value="" disabled selected>Select GPA</option>
+                            </select>
+                            <div class="errorPrompt"></div>
+                            <button type="button" id="searchButton">Find Your School!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+	</div>
+	</div>
+</body>
+</html>
