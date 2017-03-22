@@ -31,16 +31,38 @@
                             <select id="stateList">
                                 <option value="" disabled selected>Select State</option>
                             </select>
-                            <select id="nameList">
-                                <option value="" disabled selected>Select Name Of School</option>
+                            <select id="admin">
+                                <option value="" disabled selected>Admissions Level</option>
                             </select>
-                            <select id="gpaList">
-                                <option value="" disabled selected>Select GPA</option>
+                            <select id="statelist">
+                                <option value="" disabled selected>Select State</option>
                             </select>
                             <div class="errorPrompt"></div>
                             <button type="button" id="searchButton">Find Your School!</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel panel-heading">
+                        <h3 class="panel-title">Your List of Schools</h3>
+                    </div>
+                    <table class="text-center table table-hover">
+                        <thead>
+                            <th>School Name</th>
+                            <th>Location</th>
+                            <th>Acceptance Rate</th>
+                            <th>Average GPA</th>
+                            <th>Partiablility</th>
+                            <th></th>
+                        </thead>
+                        <tbody id="schoolTable">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
