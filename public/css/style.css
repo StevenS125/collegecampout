@@ -1,0 +1,59 @@
+#header-list li {
+    list-style: none;
+    display: inline;
+}
+
+body {
+    background-image: url("assets/homie.jpg");
+    padding: 0;
+    margin: 0;
+}
+
+.jumbotron {
+    color: white;
+    background: rgb(200, 54, 54);
+    /* This is for ie8 and below */
+    background: rgba(200, 54, 54, 0.3);
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.70);
+}
+
+#carousel-example-generic {
+    margin-bottom: 50px;
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+    height: 400px;
+}
+
+
+
+#nav {
+    background: rgb(200, 54, 54);
+    background: rgba(200, 54, 54, 0.3);
+    height: 50px;
+    width: 100%;
+    margin: 0 auto;
+    top: 0;
+}
+
+.nav-links {
+    display: block;
+    left: 70px;
+    line-height: 50px;
+    position: absolute;
+    top: 0;
+}
+
+.link {
+    border-right: 1px solid #595959;
+    font-weight: 300;
+    letter-spacing: .04em;
+    line-height: 1;
+    margin: 0 .4em 0 0;
+    padding: 0 .3em 0 0;
+    color: white;
+}
