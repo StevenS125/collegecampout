@@ -1,3 +1,4 @@
+
 // *****************************************************************************
 // Server.js - This file is the initial starting point for the Node/Express server.
 //
@@ -111,3 +112,4 @@ app.get("/api/oneCollege", function(req, res) {
 		break;
 	}
 });
+
