@@ -33,20 +33,22 @@ $("#stateButton").on("click", function(event) {
 
     var newState = {
     // name from name input
-    parameter: $("#stateList").val().trim(),
+    param: $("#stateList").val().trim(),
     // role from role input
     searchType: "state"
 
   };
 
+  console.log(newState);
+
     // send an AJAX POST-request with jQuery
-  $.get("/api/college", newState)
+  $.post("/api/college", newState)
     // on success, run this callback
     .done(function(data) {
       // log the data we found
       console.log(data);
       // tell the user we're adding a character with an alert window
-      alert("Adding state...");
+      // alert("Adding state...");
     });
 
 });
