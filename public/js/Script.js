@@ -1,3 +1,4 @@
+
 // Code here handles what happens when a user submits a new character on the form.
 // Effectively it takes the form inputs then sends it to the server to save in the DB.
 
@@ -7,6 +8,8 @@ $("#searchButton").on("click", function(event) {
 
   // make a newSchool obj
   var newSchool = {
+    // name from name input
+    state: $("#stateList").val().trim(),
     // role from role input
     name: $("#nameList").val().trim(),
     // age from age input
@@ -14,7 +17,7 @@ $("#searchButton").on("click", function(event) {
   };
 
   // send an AJAX POST-request with jQuery
-  $.get("/api/college", newSchool)
+  $.post("/api/schools", newSchool)
     // on success, run this callback
     .done(function(data) {
       // log the data we found
@@ -25,26 +28,27 @@ $("#searchButton").on("click", function(event) {
 
 });
 
-
 $("#stateButton").on("click", function(event) {
   event.preventDefault();
 
     var newState = {
     // name from name input
-    parameter: $("#stateList").val().trim(),
+    param: $("#stateList").val().trim(),
     // role from role input
     searchType: "state"
 
   };
 
+  console.log(newState);
+
     // send an AJAX POST-request with jQuery
-  $.get("/api/college", newState)
+  $.post("/api/college", newState)
     // on success, run this callback
     .done(function(data) {
       // log the data we found
       console.log(data);
       // tell the user we're adding a character with an alert window
-      alert("Adding state...");
+      // alert("Adding state...");
     });
 
 });
@@ -69,3 +73,4 @@ $("#adminButton").on("click", function(event) {
     });
 
 });
+
