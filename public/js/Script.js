@@ -26,7 +26,7 @@ $("#searchButton").on("click", function(event) {
 });
 
 
-$("#statehButton").on("click", function(event) {
+$("#stateButton").on("click", function(event) {
   event.preventDefault();
 
     var newState = {

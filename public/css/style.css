@@ -57,3 +57,10 @@ body {
     padding: 0 .3em 0 0;
     color: white;
 }
+
+
+ #overridepanel-heading {
+    color: #eee;
+    background-color: #2196F3;
+
+}
