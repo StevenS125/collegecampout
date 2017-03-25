@@ -13,7 +13,7 @@ module.exports = function(app) {
 
   // Route to the cms page
   app.get("/search", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/select.html"));
+    res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
   // blog route loads blog.html
