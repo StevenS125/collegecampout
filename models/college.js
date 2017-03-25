@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true
     },
     College: {
       type: DataTypes.STRING,
@@ -143,6 +144,9 @@ module.exports = function(sequelize, DataTypes) {
     History: {
         type: DataTypes.FLOAT
     }
+  },{timestamps: false,
+      tableName: "colleges",
+      freezeTableName: true
   });
   return College;
 };
