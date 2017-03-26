@@ -33,7 +33,7 @@ $("#stateButton").on("click", function(event) {
 
     var newState = {
     // name from name input
-    param: $("#stateList").val().trim(),
+    param: $( "#stateList option:selected" ).text(),
     // role from role input
     searchType: "state"
 
