@@ -17,7 +17,11 @@ db.sequelize.sync()
 module.exports = function(app) {
 
 app.post("/api/college", function(req, res) {
+
+
 	term = req.body.param
+
+	if (term.toUpperCase() === "state" ) 
 	db.College.findAll({
 		where: {
 			State: {
@@ -28,16 +32,42 @@ app.post("/api/college", function(req, res) {
 	.then(function(result) {
 		return res.json(result);
 	});
+
+
 });
 
 //==================================================
 //Post route for creating username
 //==================================================
-app.post("/api/user", function(req, res) {
+app.post("/user/create", function(req, res) {
+	db.User.findAll({
+		where: {
+			name: {
+				$like: req.body.name
+			},
+			$and: {
+				password: {
+					$like: req.body.password
+					
+				}
+			}
+		}
 
-	db.User.create({
-		userName: req.body.userName
-	});
+	}).then(function(results) {
+		if (results.length > 0) {
+			return res.json({msg: "user already exists"})
+		}
+		else {
+			db.User.create({
+				name: req.body.name,
+				password: req.body.password,
+				admin: false
+			}).then(function(data){
+				return res.json(data)
+			})
+		}
+	})
+	
 });
 
 //==================================================
