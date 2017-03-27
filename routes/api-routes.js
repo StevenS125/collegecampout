@@ -43,17 +43,22 @@ module.exports = function(app) {
 
 app.post("/api/college", function(req, res) {
 
+	state = req.body.state
+	admit = req.body.admit
+	tuition = req.body.tuition
 
-	term = req.body.param
 
-	if (term.toUpperCase() === "state" ) 
 	db.College.findAll({
 		where: {
 			State: {
-				$like: term
-			}
-		}
-	})
+				$like: state
+			},
+			Admission: {
+				$lte: admit
+			},
+			Tuition: {
+				$lte: tuition
+			}}}, {limit: 20})
 	.then(function(result) {
 		return res.json(result);
 	});
@@ -149,8 +154,6 @@ app.post("/user/login", function(req, res) {
 			salt = results.salt
 			hashedPw = results.hashPw
 			logHashedPw = sha512(req.body.password, salt).passwordHash;
-			console.log(hashedPw)
-			console.log(logHashedPw)
 
 			if (hashedPw === logHashedPw) {
 				data = {
