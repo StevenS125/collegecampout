@@ -1,7 +1,32 @@
 
 
+
+
+
+
+
 // Requiring our models for syncing
 var db = require("../models");
+
+
+const crypto = require('crypto')
+var randomBytes = require('randombytes');
+
+const sha512 = (password, salt) => {
+   let hash = crypto.createHmac('sha512', salt);
+   hash.update(password);
+   let value = hash.digest('hex');
+   return {
+       salt: salt,
+       passwordHash: value
+   }
+};
+
+const genRandomString = (length) => {
+   return randomBytes(Math.ceil(length/2))
+       
+};
+
 
 
 
@@ -36,20 +61,51 @@ app.post("/api/college", function(req, res) {
 
 });
 
+
+// app.post("/user/create", function(req, res) {
+
+// 	salt = genRandomString(32);
+//     hashedPassword = sha512(req.body.password, salt).passwordHash;
+
+// 	db.Login.create({
+// 		name: req.body.name,
+// 		salt: salt,
+// 		hashPw: hashedPassword
+// 	}).then(function(data) {
+// 		return res.json(data)
+// 	})
+	
+
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //==================================================
 //Post route for creating username
 //==================================================
 app.post("/user/create", function(req, res) {
-	db.User.findAll({
+	db.Login.findAll({
 		where: {
 			name: {
 				$like: req.body.name
-			},
-			$and: {
-				password: {
-					$like: req.body.password
-					
-				}
 			}
 		}
 
@@ -58,10 +114,20 @@ app.post("/user/create", function(req, res) {
 			return res.json({msg: "user already exists"})
 		}
 		else {
-			db.User.create({
+
+
+				salt = genRandomString(32);
+				hashedPw = sha512(req.body.password, salt).passwordHash;
+
+				console.log(salt)
+				console.log(hashedPw)
+
+
+
+			db.Login.create({
 				name: req.body.name,
-				password: req.body.password,
-				admin: false
+				salt: salt,
+				hashPw: hashedPw
 			}).then(function(data){
 				return res.json(data)
 			})
@@ -69,6 +135,44 @@ app.post("/user/create", function(req, res) {
 	})
 	
 });
+
+
+app.post("/user/login", function(req, res) {
+	db.Login.findOne({
+		where: {
+			name: {
+				$like: req.body.name
+			}
+		}
+
+	}).then(function(results) {
+			salt = results.salt
+			hashedPw = results.hashPw
+			logHashedPw = sha512(req.body.password, salt).passwordHash;
+			console.log(hashedPw)
+			console.log(logHashedPw)
+
+			if (hashedPw === logHashedPw) {
+				data = {
+					msg: "you logged in"
+				}
+				return res.json(data)
+			}
+			else {
+				data = {
+					msg: "thats an error yo",
+					storedHash: hashedPw,
+					new: logHashedPw,
+					salt: salt
+				}
+				return res.json(data)
+			}
+			
+});
+});
+
+
+
 
 //==================================================
 //Get route to pull information for one college - 
