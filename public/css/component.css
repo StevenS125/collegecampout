@@ -9,6 +9,7 @@
 	font-style: normal;
 }
 
+
 /* general style for the form */
 .nl-form {
 	width: 100%;
@@ -169,6 +170,12 @@
 	line-height: 2.5;
 	display: block;
 }
+
+#costList{
+    height:100px;
+    overflow: scroll;
+}
+
 
 /* custom placeholder color */
 input::-webkit-input-placeholder {
