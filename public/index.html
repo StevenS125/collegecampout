@@ -27,29 +27,18 @@
 
 			<div class="main clearfix">
 				<form id="nl-form" class="nl-form">
-					I want to search for a school by
-					<select id="stateList">
-						<option value="1" selected>which attribute?</option>
-						<option value="2">State</option>
-						<option value="3">Tuition</option>
-						<option value="4">Admission Rate</option>
-						<option value="2">School Name</option>
+					I want to search for a school that costs
+					<select id="costList">
+						<option value="1" selected>less than?</option>
+						<option value="2">5,000</option>
+						<option value="3">10,000</option>
+						<option value="4">20,000</option>
+						<option value="2">Any</option>
 					</select>
-						<div class="nl-submit-wrap">
-						<button class="nl-submit" type="submit" id="stateButton">Find Your School!</button>
-					</div>
 					<div class="nl-overlay"></div>
 					<br />
-					<select id="costList">
-						<option value="1" selected>search for?</option>
-						<option value="2">nc</option>
-						<option value="3">oh</option>
-						<option value="4">traditional</option>
-						<option value="2">romantic</option>
-					</select>
-						<div class="nl-submit-wrap">
-						<button class="nl-submit" type="submit" id="costButton">Find Your School!</button>
-					</div>
+					  <input type="text" class="form-control" id="stateList" placeholder="Type Your State">
+
 					<div class="nl-overlay"></div>
 					where students are accepted at
 					<br />
