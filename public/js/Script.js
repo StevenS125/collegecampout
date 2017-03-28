@@ -28,27 +28,28 @@ $("#searchButton").on("click", function(event) {
 
 });
 
-$("#stateButton").on("click", function(event) {
+$("#admitButton").on("click", function(event) {
   event.preventDefault();
 
-    var newState = {
+    var search = {
     // name from name input
-    param: $( "#stateList option:selected" ).text(),
+    state: $("#stateList").val().trim(),
     // role from role input
-    searchType: "state"
+    admit: $("#admitList option:selected").val(),
+    tuition: $("#costList option:selected").text()
 
   };
 
-  console.log(newState);
+  console.log(search);
 
     // send an AJAX POST-request with jQuery
-  $.post("/api/college", newState)
+  $.post("/api/college", search)
     // on success, run this callback
     .done(function(data) {
       // log the data we found
       console.log(data);
-      // tell the user we're adding a character with an alert window
-      // alert("Adding state...");
+      $('#search-results').html(data[0].College);
+      $('#myModal').modal();
     });
 
 });

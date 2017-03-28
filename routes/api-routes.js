@@ -56,9 +56,10 @@ app.post("/api/college", function(req, res) {
 			Admission: {
 				$lte: admit
 			},
-			Tuition: {
+			Tuition_In: {
 				$lte: tuition
-			}}}, {limit: 20})
+			}},
+		limit: 20})
 	.then(function(result) {
 		return res.json(result);
 	});
