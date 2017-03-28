@@ -11,7 +11,10 @@
 		<link rel="shortcut icon" href="../favicon.ico"> 
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="js/modernizr.custom.js"></script>
 	</head>
 	<body class="nl-blurred">
@@ -44,9 +47,9 @@
 					<br />
 					<select id="admitList">
 						<option value="1" selected>what admission rate?</option>
-					 	<option value="1">7 p.m.</option>
-					 	<option value="2">8 p.m.</option>
-					 	<option value="3">9 p.m.</option>
+					 	<option value=".8">very accepting</option>
+					 	<option value=".5">average</option>
+					 	<option value=".2">competitive</option>
 					</select>
 					<div class="nl-submit-wrap">
 						<button class="nl-submit" type="submit" id="admitButton">Find Your School!</button>
@@ -55,6 +58,26 @@
 
 				</form>
 			</div>
+			<!-- Modal -->
+   <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <label class="modal-title" for="artist-input">Your search results</label>
+         </div>
+         <div class="modal-body">
+           <div id="search-results"></div>
+           <br>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-primary" id="selectArtist">Save changes</button>
+         </div>
+       </div><!-- /.modal-content -->
+     </div><!-- /.modal-dialog -->
+   </div><!-- /.modal -->
+
+
 		</div><!-- /container -->
 		<script src="js/nlform.js"></script>
 		<script>
