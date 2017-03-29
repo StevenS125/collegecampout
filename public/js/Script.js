@@ -48,11 +48,27 @@ $("#admitButton").on("click", function(event) {
     .done(function(data) {
       // log the data we found
       console.log(data);
-      $('#search-results').html(data[0].College);
+      
+for (i in data) {
+  newDiv = $("<div>");
+  newDiv.append($('<h4>').html(data[i].College));
+  newDiv.append($('<h5>').html(data[i].City));
+  var link = $('<a>').attr("href", data[i].Webstie);
+
+  newDiv.append((link.html(data[i].Webstie)));
+
+
+  $('#search-results').append(newDiv);
+
+}
+
+      $('#search-city').html(data[0].City);
+      $('#search-website').html(data[0].Webstie);
       $('#myModal').modal();
     });
-
 });
+
+
 
 $("#adminButton").on("click", function(event) {
   event.preventDefault();
