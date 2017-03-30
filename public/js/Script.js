@@ -36,14 +36,32 @@ $(document).ready(function(){
 
 $("#admitButton").on("click", function(event) {
   event.preventDefault();
-
+  //create an array from html option values to use as the range for college query
+  adRange = []
+  admit = parseFloat($("#admitList option:selected").val())
+    if (admit === 1) {
+      adRange = [0,1]
+    }
+    else if (admit === .8) {
+      adRange = [.8,1]
+    }
+    else if (admit === .5 ) {
+      adRange = [.3, .7]
+    }
+    else if (admit === .2) {
+      adRange = [.01, .2]
+    }
+//check if state was input -- if not set state to wildcard for query
+state =  $("#stateList").val().trim()
+if (state === "") {
+  state = "%"
+}
+//create search/query object for api call
     var search = {
     // name from name input
-    state: $("#stateList").val().trim(),
-    // role from role input
-    admit: $("#admitList option:selected").val(),
-    tuition: $("#costList option:selected").text()
-
+    state :  state,
+    admit: adRange,
+    tuition: parseInt($("#costList option:selected").val())
   };
 
   console.log(search);
@@ -54,48 +72,34 @@ $("#admitButton").on("click", function(event) {
     .done(function(data) {
       // log the data we found
       console.log(data);
-      
+// create html for each college object in the array returned by query
+  //  needs buttons with college id as data in the element
 for (i in data) {
   newDiv = $("<div>");
+  newDiv.addClass("well");
   newDiv.append($('<h4>').html(data[i].College));
-  newDiv.append($('<h5>').html(data[i].City));
+  newDiv.append($('<h5>').html(data[i].City+", "+data[i].State));
   var link = $('<a>').attr("href", data[i].Webstie);
+  favBtn = $('<button>').attr("data-id", data[i].id);
+  favBtn.addClass("btn btn-danger pull-right");
+  heart = $('<span>').addClass('glyphicon glyphicon-heart');
+  favBtn.append(heart);
+  newDiv.append(favBtn);
+  
+
 
   newDiv.append((link.html(data[i].Webstie)));
-
 
   $('#search-results').append(newDiv);
 
 }
 
-      $('#search-city').html(data[0].City);
-      $('#search-website').html(data[0].Webstie);
+      //show modal
       $('#myModal').modal();
     });
 });
 
 
-
-$("#adminButton").on("click", function(event) {
-  event.preventDefault();
-
-  // make a newSchool obj
-  var newAdmin = {
-
-    Admin: $("#admin").val().trim(),
-  };
-
-  // send an AJAX POST-request with jQuery
-  $.get("/api/college", newAdmin)
-    // on success, run this callback
-    .done(function(data) {
-      // log the data we found
-      console.log(data);
-      // tell the user we're adding a character with an alert window
-      alert("Adding level of difficulty...");
-    });
-
-});
 
 
 

@@ -4,7 +4,12 @@ var crypto = require('crypto'),
     password = 'd6F3Efeq';
 
 
-
+function encrypt(text){
+  var cipher = crypto.createCipher(algorithm,password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
 
 
 
@@ -41,7 +46,7 @@ app.post("/api/college", function(req, res) {
 				$like: state
 			},
 			Admission: {
-				$lte: admit
+				$between: admit
 			},
 			Tuition_In: {
 				$lte: tuition
@@ -56,6 +61,28 @@ app.post("/api/college", function(req, res) {
 
 
 app.post("/user/create", function(req, res) {
+
+	db.Login.findAll({
+		where: {
+			name: {
+				$like: req.body.name
+			}
+		}
+	}).then(function(results){
+		if (results.length > 0) {
+			return res.json({msg: "user already exist"})
+	}
+	else {
+		db.Login.create({
+			name: req.body.name,
+			hashPw: encrypt(req.body.password)
+		}).then(function(data) {
+			return res.json(data)
+		})
+	}
+
+	})
+});
 
 
 
