@@ -28,6 +28,12 @@
 
 // });
 
+$(document).ready(function(){
+  if (sessionStorage.length > 0) {
+    $('#user').html("logged in as "+sessionStorage.name )
+  }
+})
+
 $("#admitButton").on("click", function(event) {
   event.preventDefault();
 

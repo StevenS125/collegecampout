@@ -73,7 +73,9 @@ app.post("/user/login", function(req, res) {
 		unhash = results[0].hashPw
 
 		if (attempt === unhash) {
-			return res.json({msg: "you logged in"})
+			return res.json({id: results[0].id,
+					name: results[0].name
+		})
 	}
 	else {
 		return res.json({msg: "bad pw/username"})
@@ -141,36 +143,36 @@ app.post("/user/login", function(req, res) {
 // });
 
 
-app.post("/user/login", function(req, res) {
-	db.Login.findOne({
-		where: {
-			name: {
-				$like: req.body.name
-			}
-		}
+// app.post("/user/login", function(req, res) {
+// 	db.Login.findOne({
+// 		where: {
+// 			name: {
+// 				$like: req.body.name
+// 			}
+// 		}
 
-	}).then(function(results) {
-			salt = results.salt
-			hashedPw = results.hashPw
-			logHashedPw = sha512(req.body.password, salt).passwordHash;
+// 	}).then(function(results) {
+// 			salt = results.salt
+// 			hashedPw = results.hashPw
+// 			logHashedPw = sha512(req.body.password, salt).passwordHash;
 
-			if (hashedPw === logHashedPw) {
-				data = {
-					msg: "you logged in"
-				}
-				return res.json(data)
-			}
-			else {
-				data = {
-					msg: "thats an error yo",
-					storedHash: hashedPw,
-					new: logHashedPw,
-					salt: salt
-				}
-				return res.json(data)
-			}
+// 			if (hashedPw === logHashedPw) {
+// 				data = {
+// 					msg: "you logged in"
+// 				}
+// 				return res.json(data)
+// 			}
+// 			else {
+// 				data = {
+// 					msg: "thats an error yo",
+// 					storedHash: hashedPw,
+// 					new: logHashedPw,
+// 					salt: salt
+// 				}
+// 				return res.json(data)
+// 			}
 			
-});
-});
+// });
+// });
 
 }
