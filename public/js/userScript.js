@@ -34,7 +34,10 @@ $("#login").on("click", function(event) {
 
   .done(function(data){
       console.log(data)
-      
+      sessionStorage.setItem("id", data.id)
+      sessionStorage.setItem("name", data.name)
+      console.log(sessionStorage)
+      window.open('/search', "_self")
 
 
   })
