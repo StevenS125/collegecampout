@@ -3,19 +3,6 @@ var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
     password = 'd6F3Efeq';
 
-function encrypt(text){
-  var cipher = crypto.createCipher(algorithm,password)
-  var crypted = cipher.update(text,'utf8','hex')
-  crypted += cipher.final('hex');
-  return crypted;
-}
- 
-function decrypt(text){
-  var decipher = crypto.createDecipher(algorithm,password)
-  var dec = decipher.update(text,'hex','utf8')
-  dec += decipher.final('utf8');
-  return dec;
-}
 
 
 
@@ -43,9 +30,9 @@ module.exports = function(app) {
 
 app.post("/api/college", function(req, res) {
 
-	state = req.body.state
-	admit = req.body.admit
-	tuition = req.body.tuition
+	var state = req.body.state
+	var admit = req.body.admit
+	var tuition = req.body.tuition
 
 
 	db.College.findAll({
@@ -70,27 +57,6 @@ app.post("/api/college", function(req, res) {
 
 app.post("/user/create", function(req, res) {
 
-	db.Login.findAll({
-		where: {
-			name: {
-				$like: req.body.name
-			}
-		}
-	}).then(function(results){
-		if (results.length > 0) {
-			return res.json({msg: "user already exist"})
-	}
-	else {
-		db.Login.create({
-			name: req.body.name,
-			hashPw: encrypt(req.body.password)
-		}).then(function(data) {
-			return res.json(data)
-		})
-	}
-
-	})
-});
 
 
 
