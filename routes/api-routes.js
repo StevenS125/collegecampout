@@ -1,6 +1,9 @@
 
+var crypto = require('crypto'),
+    algorithm = 'aes-256-ctr',
+    password = 'd6F3Efeq';
 
-'use strict'
+
 
 
 
@@ -9,23 +12,7 @@
 var db = require("../models");
 
 
-const crypto = require('crypto')
-var randomBytes = require('randombytes');
 
-const sha512 = (password, salt) => {
-   let hash = crypto.createHmac('sha512', salt);
-   hash.update(password);
-   let value = hash.digest('hex');
-   return {
-       salt: salt,
-       passwordHash: value
-   }
-};
-
-const genRandomString = (length) => {
-   return randomBytes(Math.ceil(length/2))
-       
-};
 
 
 
@@ -70,20 +57,31 @@ app.post("/api/college", function(req, res) {
 
 app.post("/user/create", function(req, res) {
 
-	salt = genRandomString(32);
-    hashedPassword = sha512(req.body.password, salt).passwordHash;
 
-	db.Login.create({
-		name: req.body.name,
-		salt: salt,
-		hashPw: hashedPassword
-	}).then(function(data) {
-		return res.json(data)
-	})
-	
+
+
+app.post("/user/login", function(req, res) {
+
+	db.Login.findAll({
+		where: {
+			name: {
+				$like: req.body.name
+			}
+		}
+	}).then(function(results){
+		attempt = encrypt(req.body.password)
+		unhash = results[0].hashPw
+
+		if (attempt === unhash) {
+			return res.json({msg: "you logged in"})
+	}
+	else {
+		return res.json({msg: "bad pw/username"})
+	}
+
+})
 
 });
-
 
 
 
@@ -107,40 +105,40 @@ app.post("/user/create", function(req, res) {
 //==================================================
 //Post route for creating username
 //==================================================
-app.post("/user/create", function(req, res) {
-	db.Login.findAll({
-		where: {
-			name: {
-				$like: req.body.name
-			}
-		}
+// app.post("/user/create", function(req, res) {
+// 	db.Login.findAll({
+// 		where: {
+// 			name: {
+// 				$like: req.body.name
+// 			}
+// 		}
 
-	}).then(function(results) {
-		if (results.length > 0) {
-			return res.json({msg: "user already exists"})
-		}
-		else {
-
-
-				salt = genRandomString(32);
-				hashedPw = sha512(req.body.password, salt).passwordHash;
-
-				console.log(salt)
-				console.log(hashedPw)
+// 	}).then(function(results) {
+// 		if (results.length > 0) {
+// 			return res.json({msg: "user already exists"})
+// 		}
+// 		else {
 
 
+// 				salt = genRandomString(32);
+// 				hashedPw = sha512(req.body.password, salt).passwordHash;
 
-			db.Login.create({
-				name: req.body.name,
-				salt: salt,
-				hashPw: hashedPw
-			}).then(function(data){
-				return res.json(data)
-			})
-		}
-	})
+// 				console.log(salt)
+// 				console.log(hashedPw)
+
+
+
+// 			db.Login.create({
+// 				name: req.body.name,
+// 				salt: salt,
+// 				hashPw: hashedPw
+// 			}).then(function(data){
+// 				return res.json(data)
+// 			})
+// 		}
+// 	})
 	
-});
+// });
 
 
 app.post("/user/login", function(req, res) {
@@ -173,64 +171,6 @@ app.post("/user/login", function(req, res) {
 			}
 			
 });
-});
-
-
-
-
-//==================================================
-//Get route to pull information for one college - 
-//==================================================
-app.get("/api/college", function(req, res) {
-
-	
-	//======================================
-	//Switch statement for search parameters
-	//======================================
-	switch(req.body.searchType) {
-		
-		//==================
-		//College Param
-		//==================
-		case "College":
-		db.College.findAll({
-			where: {
-				College: req.body.parameter
-			}
-		}).then(function(result) {
-			return res.json(result);
-			});
-			
-			break;
-
-		//=================
-		//State Param
-		//=================
-		case "state":
-		db.College.findAll({
-			where: {
-				State: req.body.parameter
-			}
-		}).then(function(result) {
-			return res.json(result);
-			});
-			break;
-		
-
-		//================
-		//Admission Param
-		//================
-		case "Admin":
-		db.College.findAll({
-			where: {
-				Admin: req.body.parameter
-			}
-		}).then(function(result) {
-			return res.json(result);
-		});
-
-		break;
-	}
 });
 
 }
