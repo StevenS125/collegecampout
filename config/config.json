@@ -1,22 +1,22 @@
 {
   "development": {
     "username": "root",
-    "password": "iniesta79",
-    "database": "college",
+    "password": "Tuamig)Lok1!",
+    "database": "college_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "iniesta79",
-    "database": "college",
+    "password": "Tuamig)Lok1!",
+    "database": "college_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "iniesta79",
-    "database": "college",
+    "password": "Tuamig)Lok1!",
+    "database": "college_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
