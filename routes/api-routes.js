@@ -109,12 +109,61 @@ app.post("/user/login", function(req, res) {
 	}
 
 })
-
 });
 
 
+app.post("/myCollege/add", function(req,res) {
+	db.myCollege.findAll({
+		where: {
+			user_id: req.body.user_id
+		}
+		}).then(function(results){
+			if (results.length === 5){
+				return res.json({msg:"list is full"})
+			} 
+			else {
+				db.myCollege.create({
+					user_id: req.body.user_id,
+					college_id: req.body.college_id
+				}).then(function(data){
+					return res.json({data})
+				})
+			}
+	
+})
+
+})
 
 
+app.get("/myCollege/:id",function(req,res)  {
+	userId = req.params.id;
+	colleges = [];
+
+	db.myCollege.findAll({
+		where: {
+			user_id: userId
+		}
+	}).then(function(data){
+		for (i in data) {
+			colleges.push(data[i].college_id)
+		}
+		db.College.findAll({
+			where: {
+				id: {
+					$in: colleges
+					
+				}
+				}}).then(function(data){
+				return res.json(data)
+			})
+	
+})
+
+})
+
+
+
+}
 
 
 
@@ -202,4 +251,3 @@ app.post("/user/login", function(req, res) {
 // });
 // });
 
-}

@@ -29,10 +29,33 @@
 // });
 
 $(document).ready(function(){
-  if (sessionStorage.length > 0) {
+  if ('name' in sessionStorage) {
     $('#user').html("logged in as "+sessionStorage.name )
   }
+
+  $(document).on("click", ".btn-danger", function(){
+    self = $(this)
+    newFav = {
+      user_id: sessionStorage.id,
+      college_id: $(this).data("id")
+    }
+   $.post("/myCollege/add",newFav)
+   .done(function(response){
+     if (!response.msg) {
+       div = self.parent()
+       div.empty();
+       div.html("added to favs")
+     }
+     else {
+       //code to say list is full
+     }
+   })
+  
+   
+  })
 })
+
+
 
 $("#admitButton").on("click", function(event) {
   event.preventDefault();
