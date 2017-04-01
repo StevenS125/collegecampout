@@ -1,6 +1,6 @@
 
 
-
+// take values
 $("#create").on("click", function(event) {
   event.preventDefault();
   user = {

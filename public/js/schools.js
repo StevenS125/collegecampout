@@ -2,28 +2,65 @@
 // It pings the server. The server then pings the database and displays all of the characters.
 
 // make a get request to our api to grab every character
-$.get("/api/college", function(data) {
 
-  // for each character that our server sends us back
-  for (var i = 0; i < data.length; i++) {
-    // create a parent div for the oncoming elements
-    var wellSection = $("<div>");
-    // add a class to this div: 'well'
-    wellSection.addClass("well");
-    // add an id to the well to mark which well it is
-    wellSection.attr("id", "character-well-" + i);
-    // append the well to the well section
-    $("#well-section").append(wellSection);
+$(document).ready(function(){
+$.get("/myCollege/"+sessionStorage.id, function(data) {
+  var myData = data;
+  console.log(myData);
 
-    // Now add all of our character data to the well we just placed on the page
 
-    // make the name an h2,
-    $("#school-table-" + i).append("<h2>" + data[i].name + "</h2>");
-    // the role an h3,
-    $("#character-well-" + i).append("<h3>Role: " + data[i].role + "</h4>");
-    // the age an h3,
-    $("#character-well-" + i).append("<h3>Age: " + data[i].age + "</h4>");
-    // and the forcepoints an h3.
-    $("#character-well-" + i).append("<h3>Force Points: " + data[i].forcePoints + "</h4>");
+  for (i in myData) {
+    col = myData[i]
+    table = $('#schoolTable')
+    table.append($('<tr><td>'+col.College+'</td><td>'+col.City+'</td><td>'+col.State+'</td><td>'+col.Admission+'</td><td>'+col.Tuition_In+'</td><td>'+col.Tuition_Out+'</td></tr>'))
   }
-});
+  // //create 5 arrays for each data object:
+  // 	newArray0 = myData[0];
+  // 	newArray1 = myData[1];
+  // 	newArray2 = myData[2];
+  // 	newArray3 = myData[3];
+  // 	newArray4 = myData[4];
+  
+  // //Displaying Each Array Data
+  // Object.getOwnPropertyNames(newArray0).forEach(
+  // 		function (val, idx, array) {
+  // 			newDiv = $("<div>");
+  // 			newDiv.addClass("well");
+  // 			newDiv.append(val + ' : ' + newArray0[val])
+  // 			$('#schoolOne').append(newDiv);
+  // 		});
+
+  //  Object.getOwnPropertyNames(newArray1).forEach(
+  // 		function (val, idx, array) {
+  // 			newDiv = $("<div>");
+  // 			newDiv.addClass("well");
+  // 			newDiv.append(val + ' : ' + newArray1[val])
+  // 			$('#school2').append(newDiv);
+  // 		});
+
+  //   Object.getOwnPropertyNames(newArray2).forEach(
+  // 		function (val, idx, array) {
+  // 			newDiv = $("<div>");
+  // 			newDiv.addClass("well");
+  // 			newDiv.append(val + ' : ' + newArray2[val])
+  // 			$('#school3').append(newDiv);
+  // 		});
+
+  //    Object.getOwnPropertyNames(newArray3).forEach(
+  // 		function (val, idx, array) {
+  // 			newDiv = $("<div>");
+  // 			newDiv.addClass("well");
+  // 			newDiv.append(val + ' : ' + newArray3[val])
+  // 			$('#school4').append(newDiv);
+  // 		});
+
+  //     Object.getOwnPropertyNames(newArray4).forEach(
+  // 		function (val, idx, array) {
+  // 			newDiv = $("<div>");
+  // 			newDiv.addClass("well");
+  // 			newDiv.append(val + ' : ' + newArray4[val])
+  // 			$('#school5').append(newDiv);
+  		
+
+  });
+  });

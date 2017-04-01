@@ -11,14 +11,16 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	 <link rel="stylesheet" type="text/css" href="css/style.css">
+     <link rel="stylesheet" href="https://bootswatch.com/superhero/bootstrap.min.css">
+
 
 </head>
 <body>
 <div id="nav">
     <div class="nav-links">
-        <a class="link" href="#">HOME</a>
-        <a class="link" href="#">SCHOOL LIST</a>
-        <a class="link" href="#">SELECT</a>
+        <a class="link" href="/home">HOME</a>
+        <a class="link" href="/mySchools">SCHOOL LIST</a>
+        <a class="link" href="/search">SEARCH</a>
     </div>
 </div>
 
@@ -30,22 +32,29 @@
                     <div class="panel panel-heading">
                         <h3 class="panel-title">Your Chosen List of Schools</h3>
                     </div>
-                    <table class="text-center table table-hover">
+                   <table class="text-center table table-hover table-striped">
                         <thead>
                             <th>School Name</th>
-                            <th>Location</th>
+                            <th>City</th>
+                            <th>State</th>
                             <th>Acceptance Rate</th>
-                            <th>Average GPA</th>
-                            <th>Partiablility</th>
+                            <th>Tuiton In State</th>
+                            <th>Tuiton Out State</th>
                             <th></th>
                         </thead>
                         <tbody id="schoolTable">
 
                         </tbody>
                     </table>
+      
+                    </div>
+                    </div>
+                    </div>
+
+                    
                 </div>
             </div>
         </div>
-
+        <script src="js/schools.js"></script>
 		</body>
         </html>

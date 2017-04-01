@@ -4,7 +4,12 @@ var crypto = require('crypto'),
     password = 'd6F3Efeq';
 
 
-
+function encrypt(text){
+  var cipher = crypto.createCipher(algorithm,password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
 
 
 
@@ -41,7 +46,7 @@ app.post("/api/college", function(req, res) {
 				$like: state
 			},
 			Admission: {
-				$lte: admit
+				$between: admit
 			},
 			Tuition_In: {
 				$lte: tuition
@@ -56,6 +61,28 @@ app.post("/api/college", function(req, res) {
 
 
 app.post("/user/create", function(req, res) {
+
+	db.Login.findAll({
+		where: {
+			name: {
+				$like: req.body.name
+			}
+		}
+	}).then(function(results){
+		if (results.length > 0) {
+			return res.json({msg: "user already exist"})
+	}
+	else {
+		db.Login.create({
+			name: req.body.name,
+			hashPw: encrypt(req.body.password)
+		}).then(function(data) {
+			return res.json(data)
+		})
+	}
+
+	})
+});
 
 
 
@@ -82,12 +109,61 @@ app.post("/user/login", function(req, res) {
 	}
 
 })
-
 });
 
 
+app.post("/myCollege/add", function(req,res) {
+	db.myCollege.findAll({
+		where: {
+			user_id: req.body.user_id
+		}
+		}).then(function(results){
+			if (results.length === 5){
+				return res.json({msg:"list is full"})
+			} 
+			else {
+				db.myCollege.create({
+					user_id: req.body.user_id,
+					college_id: req.body.college_id
+				}).then(function(data){
+					return res.json({data})
+				})
+			}
+	
+})
+
+})
 
 
+app.get("/myCollege/:id",function(req,res)  {
+	userId = req.params.id;
+	colleges = [];
+
+	db.myCollege.findAll({
+		where: {
+			user_id: userId
+		}
+	}).then(function(data){
+		for (i in data) {
+			colleges.push(data[i].college_id)
+		}
+		db.College.findAll({
+			where: {
+				id: {
+					$in: colleges
+					
+				}
+				}}).then(function(data){
+				return res.json(data)
+			})
+	
+})
+
+})
+
+
+
+}
 
 
 
@@ -175,4 +251,3 @@ app.post("/user/login", function(req, res) {
 // });
 // });
 
-}
