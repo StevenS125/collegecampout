@@ -31,6 +31,12 @@
 $(document).ready(function(){
   if ('name' in sessionStorage) {
     $('#user').html("logged in as "+sessionStorage.name )
+    logBtn = $('<button>');
+    logBtn.addClass("btn btn-default");
+    logBtn.addClass("logout");
+    logBtn.html("logout");
+
+    $('#user').append(logBtn)
   }
 
   $(document).on("click", ".btn-danger", function(){
